@@ -1,4 +1,5 @@
 import thread
+import sys
 def print_port_info(port):
 	print "Port: " + str(port.port)
 	print "Baudrate: " + str(port.baudrate)
@@ -11,5 +12,6 @@ def print_port_info(port):
 
 def log_rx_data(port):
 	while True:
-		s = port.readline()
-		if len(s) != 0: print s
+		s = port.read(port.in_waiting or 1)
+		if len(s) != 0: 
+			sys.stdout.write(s)
